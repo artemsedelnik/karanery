@@ -13,12 +13,17 @@ function Karanery(selector) {
         var posID = selector.indexOf('#');
         var posClassName = selector.indexOf('.');
 
+
         if (posID != -1){
             findById(posID);
         }
 
         else if (posClassName != -1){
             findByClass(posClassName);
+        }
+
+        else {
+            findByTag();
         }
 
     }
@@ -51,7 +56,7 @@ function Karanery(selector) {
                 }
             }
         }
-        karanery.selector = selector;
+       // karanery.selector = selector;
     }
 
 
@@ -73,7 +78,20 @@ function Karanery(selector) {
                 i++;
             }
         }
-        karanery.selector = selector;
+       // karanery.selector = selector;
+    }
+
+    function findByTag(){
+        var tag = selector;
+        var elementsByTagName = document.getElementsByTagName(tag);
+        var i = 0;
+        for (var element in elementsByTagName){
+            if (element == i){
+                karanery[element] = elementsByTagName[element];
+            }
+            i++;
+        }
+        //karanery.selector = selector;
     }
 }
 
@@ -89,4 +107,43 @@ Karanery.prototype.addClass = function(className) {
             i++;
         }
     }
+    return this;
 };
+
+Karanery.prototype.children = function(){
+    var karanery = this;
+
+
+    for (var i = 0; i < karanery.children.length; i++) {
+//        if (karanery[prop].children.length){
+//            console.log(karanery[0]);
+            karanery[i] = karanery[0].children;
+//        }
+    }
+
+//        for(var prop in karanery){
+//            if (karanery.hasOwnProperty(prop)){
+//                if (karanery[prop].children.length){
+//                    console.log(karanery[0]);
+//                    karanery[i] = karanery[0].children;
+//                }
+//            }
+//        }
+    return this;
+}
+
+
+
+Karanery.prototype.html = function(sel){
+    var karanery = this;
+
+    if(!arguments.length){
+            return karanery[0].innerHTML;
+    }else{
+          return karanery[0].innerHTML = sel.toString();
+    }
+
+}
+
+
+
